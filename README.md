@@ -30,10 +30,7 @@ The Kyma DNS Webhook is a component that can be used with [Cert Manager](https:/
 ```                
 
 ```
-apiVersion: certmanager.k8s.io/v1alpha1
-kind: Certificate
-metadata:
-  name: letsencrypt-staging-cert  
+a
 spec:
   secretName: example-tls-cert
   commonName: example.com
