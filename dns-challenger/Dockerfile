@@ -6,7 +6,6 @@ WORKDIR /dns-challenger
 # Copy the go source
 COPY dns-challenger/ .
 
-RUN ls
 # Fetch dependencies
 RUN go mod download
 
