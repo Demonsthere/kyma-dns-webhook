@@ -12,6 +12,9 @@ echo "USER: " + $USER
 echo "PATH: " + $PATH
 echo -e "${NC}"
 
+## TEST
+apt-get update && apt-get install -y --no-install-recommends bzr
+
 ##
 # GO BUILD
 ##
