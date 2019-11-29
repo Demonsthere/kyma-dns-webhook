@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: eu.gcr.io/kyma-project/incubator/pr
   name: dns-challenger
-  tag: "PR-15"
+  tag: "PR-16"
   pullPolicy: Always
 
 nameOverride: ""
@@ -55,7 +55,6 @@ gcloud:
 
 # Cert-manager settings
 cert-manager:
-  nameOverride: "cert-manager"
-  fullnameOverride: "cert-manager"
+  enabled: false
   extraArgs: []
     # - --dns01-recursive-nameservers=8.8.8.8:53,1.1.1.1:53

@@ -5,15 +5,15 @@ config:
 image:
   repository: eu.gcr.io/kyma-project/incubator/pr
   name: dns-webhook
-  tag: "PR-15"
+  tag: "PR-16"
   pullPolicy: Always
 
 service:
   type: ClusterIP
   port: 443
 
-nameOverride: ""
-fullnameOverride: ""
+# nameOverride: ""
+# fullnameOverride: ""
 
 certManager:
   namespace: cert-manager
