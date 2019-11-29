@@ -52,9 +52,3 @@ gcloud:
   providerName: "gcloud"
   # base64 GCP Service Account JSON key with DNS Admin role
   saJSON: ""
-
-# Cert-manager settings
-cert-manager:
-  enabled: true
-  extraArgs: []
-    # - --dns01-recursive-nameservers=8.8.8.8:53,1.1.1.1:53
