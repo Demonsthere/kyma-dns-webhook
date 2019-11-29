@@ -11,11 +11,14 @@ spec:
       name: letsencrypt-staging-account-key
     solvers:
     - dns01:
-        clouddns:
-          project: sap-se-cx-kyma-goat
-          serviceAccountSecretRef:
-            name: dns-challenger
-            key: gcloud-dns-admin.json                    
+        webhook:
+          groupName: acme.kyma-project.io
+          solverName: kyma-dns
+        # clouddns:
+        #   project: sap-se-cx-kyma-goat
+        #   serviceAccountSecretRef:
+        #     name: dns-challenger
+        #     key: gcloud-dns-admin.json                    
 ---
 apiVersion: cert-manager.io/v1alpha2
 kind: Certificate

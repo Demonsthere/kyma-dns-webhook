@@ -1,0 +1,20 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "cert-manager-init.fullname" . }}
+spec:
+  template:
+    spec:
+      serviceAccountName: {{ include "cert-manager-init.fullname" . }}
+      containers:
+      - name: kubectl
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        command:
+          - kubectl
+          - apply
+          - --validate=false
+          - -f
+          - https://raw.githubusercontent.com/jetstack/cert-manager/release-{{ .Chart.AppVersion }}/deploy/manifests/00-crds.yaml
+      restartPolicy: OnFailure
