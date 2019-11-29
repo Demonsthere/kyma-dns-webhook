@@ -1,5 +1,5 @@
 ---
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: cert-manager.io/v1alpha2
 kind: Issuer
 metadata:
   name: letsencrypt-staging
@@ -9,30 +9,22 @@ spec:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-staging-account-key
-    dns01:
-      providers:
-        - name: kyma-dns
-          webhook:
-            groupName: acme.kyma-project.io
-            solverName: kyma-dns                        
+    solvers:
+    - dns01:
+        clouddns:
+          project: sap-se-cx-kyma-goat
+          serviceAccountSecretRef:
+            name: dns-challenger
+            key: gcloud-dns-admin.json                    
 ---
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: cert-manager.io/v1alpha2
 kind: Certificate
 metadata:
-  name: sel-letsencrypt-crt
+  name: letsencrypt-crt
 spec:
-  secretName: example-com-tls
-  commonName: example.com
+  secretName: kyma-goat-ga-tls
   dnsNames:
-  - example.com
-  - www.example.com
+  - "*.kyma-goat.ga"
   issuerRef:
     name: letsencrypt-staging
     kind: Issuer
-  acme:
-    config:
-      - dns01:
-          provider: kyma-dns
-        domains:
-          - example.com
-          - www.example.com

@@ -5,7 +5,7 @@ config:
 image:
   repository: eu.gcr.io/kyma-project/incubator/pr
   name: dns-webhook
-  tag: "PR-14"
+  tag: "PR-15"
   pullPolicy: Always
 
 service:
