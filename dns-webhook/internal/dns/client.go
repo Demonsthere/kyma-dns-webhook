@@ -41,7 +41,7 @@ func (c dnsChallengeClient) Present(domain string, keyAuth string) error {
 	err := c.dnsChallengeReq("present", domain, keyAuth)
 
 	if err != nil {
-		log.Println("Error while communicating with dns-challenger : "+ err.Error())
+		log.Println("Error while communicating with dns-challenger : " + err.Error())
 	}
 	log.Println("Finish present")
 	return err
@@ -73,7 +73,7 @@ func (c dnsChallengeClient) postWithRetry(endpoint string, body []byte) error {
 	return retry.Do(func() error {
 
 		resp, postErr := c.httpClient.Post(endpoint, "application/json", bytes.NewBuffer(body))
-		log.Printf("status : %d ",resp.StatusCode)
+		log.Printf("status : %d ", resp.StatusCode)
 		if postErr != nil {
 			return postErr
 		}

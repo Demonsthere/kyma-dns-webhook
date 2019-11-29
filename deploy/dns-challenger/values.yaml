@@ -55,6 +55,6 @@ gcloud:
 
 # Cert-manager settings
 cert-manager:
-  enabled: false
+  enabled: true
   extraArgs: []
     # - --dns01-recursive-nameservers=8.8.8.8:53,1.1.1.1:53
