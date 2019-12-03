@@ -26,7 +26,7 @@ func (s *Solver) Name() string {
 
 func (s *Solver) Present(cr *v1alpha1.ChallengeRequest) error {
 	log.Infof("DNS Challenge Present: %+v", cr)
-	err := s.dnsClient.Present(cr.DNSName, cr.Key)
+	err := s.dnsClient.Present(cr.ResolvedZone, cr.Key)
 	if err != nil {
 		log.Error(err)
 	}
@@ -35,7 +35,7 @@ func (s *Solver) Present(cr *v1alpha1.ChallengeRequest) error {
 
 func (s *Solver) CleanUp(cr *v1alpha1.ChallengeRequest) error {
 	log.Info("DNS Challenge CleanUp ")
-	err := s.dnsClient.CleanUp(cr.DNSName, cr.Key)
+	err := s.dnsClient.CleanUp(cr.ResolvedZone, cr.Key)
 	if err != nil {
 		log.Error(err)
 	}

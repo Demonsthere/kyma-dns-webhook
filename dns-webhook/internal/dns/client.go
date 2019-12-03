@@ -62,9 +62,9 @@ func (c dnsChallengeClient) dnsChallengeReq(action string, domain string, keyAut
 	if err != nil {
 		return err
 	}
-
+	log.Printf("Request Body : %+v ", reqBody)
 	endpoint := fmt.Sprintf("%s/%s", c.dnsChallengeAddress, action)
-
+	log.Printf("Endpoint : %+v ", endpoint)
 	return c.postWithRetry(endpoint, reqBody)
 }
 
