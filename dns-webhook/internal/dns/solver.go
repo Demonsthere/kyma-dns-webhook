@@ -25,7 +25,7 @@ func (s *Solver) Name() string {
 }
 
 func (s *Solver) Present(cr *v1alpha1.ChallengeRequest) error {
-	log.Info("DNS Challenge Present ")
+	log.Infof("DNS Challenge Present: %+v", cr)
 	err := s.dnsClient.Present(cr.DNSName, cr.Key)
 	if err != nil {
 		log.Error(err)
