@@ -3,12 +3,13 @@ package server
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/go-acme/lego/v3/providers/dns"
-	"github.com/pkg/errors"
 	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
+
+	"github.com/go-acme/lego/v3/providers/dns"
+	"github.com/pkg/errors"
 )
 
 type dnsReq struct {
@@ -60,19 +61,18 @@ func PresentHandler() http.Handler {
 
 		err = provider.Present(req.Domain, req.Token, req.KeyAuth)
 		if err != nil {
-			log.Println("Error : dns present in GCP : " + err.Error()  )
+			log.Println("Error : dns present in GCP : " + err.Error())
 			http.Error(w, fmt.Sprintf("present req failed: %v", err), http.StatusServiceUnavailable)
 		}
 
-
 		log.Println("After Presenting")
-
 
 		return
 	})
 }
 
 func CleanupHandler() http.Handler {
+	log.Println("Cleanup handler invoked")
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
@@ -88,12 +88,12 @@ func CleanupHandler() http.Handler {
 		if err != nil {
 			http.Error(w, fmt.Sprintf("could not get request body: %v", err), http.StatusBadRequest)
 		}
-
+		log.Printf("DNS REQ : %+v", *req)
 		err = provider.CleanUp(req.Domain, req.Token, req.KeyAuth)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("present req failed: %v", err), http.StatusServiceUnavailable)
 		}
-
+		log.Println("After Presenting")
 		return
 	})
 }

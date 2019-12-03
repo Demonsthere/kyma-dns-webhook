@@ -2,7 +2,7 @@
 apiVersion: cert-manager.io/v1alpha2
 kind: Issuer
 metadata:
-  name: letsencrypt-staging
+  name: goat-webhook
 spec:
   acme:
     email: admin@kyma-project.io
@@ -11,23 +11,20 @@ spec:
       name: letsencrypt-staging-account-key
     solvers:
     - dns01:
+        cnameStrategy: Follow
         webhook:
           groupName: acme.kyma-project.io
           solverName: kyma-dns
-        # clouddns:
-        #   project: sap-se-cx-kyma-goat
-        #   serviceAccountSecretRef:
-        #     name: dns-challenger
-        #     key: gcloud-dns-admin.json                    
 ---
 apiVersion: cert-manager.io/v1alpha2
 kind: Certificate
 metadata:
-  name: letsencrypt-crt
+  name: goat-webhook
 spec:
-  secretName: kyma-goat-ga-tls
+  secretName: securego
   dnsNames:
-  - "kyma-goat.ga"
+  - app.kyma-goat.ga
+  commonName: app.kyma-goat.ga
   issuerRef:
-    name: letsencrypt-staging
+    name: goat-webhook
     kind: Issuer

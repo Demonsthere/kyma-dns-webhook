@@ -1,0 +1,41 @@
+---
+apiVersion: extensions/v1beta1 
+kind: Deployment 
+metadata: 
+  name: securego
+spec: 
+  template:
+    metadata:
+      labels:
+        app: securego
+        credit: rosskukulinski
+        lang: golang
+    spec:
+      containers:
+      - image: dazwilkin/securego
+        imagePullPolicy: Always
+        name: securego
+        ports:
+        - containerPort: 8443
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /secure
+          name: test
+      restartPolicy: Always
+      volumes:
+      - name: test
+        secret:
+          secretName: securego
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: securego
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 443
+    targetPort: 8443
+    protocol: TCP
+  selector:
+    app: securego

@@ -1,0 +1,32 @@
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Issuer
+metadata:
+  name: gcloud
+spec:
+  acme:
+    email: admin@kyma-project.io
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-staging-account-key
+    solvers:
+    - dns01:
+        cnameStrategy: Follow
+        clouddns:
+          project: sap-se-cx-kyma-goat
+          serviceAccountSecretRef:
+            name: dns-challenger
+            key: gcloud-dns-admin.json          
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: goat-gcloud
+spec:
+  secretName: securego
+  commonName: securego.kyma-goat.ga
+  dnsNames:
+  - securego.kyma-goat.ga
+  issuerRef:
+    name: gcloud
+    kind: Issuer

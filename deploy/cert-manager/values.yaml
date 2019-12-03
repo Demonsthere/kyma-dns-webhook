@@ -18,7 +18,7 @@ global:
     enabled: false
 
   # Set the verbosity of cert-manager. Range of 0 - 6 with 6 being the most verbose.
-  logLevel: 2
+  logLevel: 6
 
   leaderElection:
     # Override the namespace used to store the ConfigMap for leader election
@@ -55,7 +55,7 @@ serviceAccount:
 
 # Optional additional arguments
 extraArgs:
-  - --dns01-recursive-nameservers=216.239.32.109:53,216.239.34.109:53,216.239.36.109:53,216.239.38.109:53
+  - --dns01-recursive-nameservers=8.8.8.8:53,1.1.1.1:53
   # Use this flag to set a namespace that cert-manager will use to store
   # supporting resources required for each ClusterIssuer (default is kube-system)
   # - --cluster-resource-namespace=kube-system
@@ -87,10 +87,7 @@ podLabels: {}
 # NOTE: This requires Kubernetes 1.10 or `CustomPodDNS` feature gate enabled for
 # the cluster to work.
 # podDnsPolicy: "None"
-# podDnsConfig:
-#   nameservers:
-#     - "1.1.1.1"
-#     - "8.8.8.8"
+# podDnsConfig: []
 
 nodeSelector: {}
 

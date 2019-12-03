@@ -32,6 +32,8 @@ spec:
               value: {{ .Values.gcloud.providerName }}
             - name: GCE_SERVICE_ACCOUNT_FILE
               value: "/etc/secrets/gcloud-dns-admin.json"
+            - name: GCE_TTL
+              value: "60"
           volumeMounts:
             - name: {{ include "dns-challenger.name" . }}-secrets-volume
               mountPath: /etc/secrets
