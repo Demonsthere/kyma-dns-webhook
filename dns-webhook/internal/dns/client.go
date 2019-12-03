@@ -5,9 +5,10 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
-	"github.com/avast/retry-go"
 	"log"
 	"net/http"
+
+	"github.com/avast/retry-go"
 )
 
 type DNSChallengeClient interface {
@@ -48,7 +49,12 @@ func (c dnsChallengeClient) Present(domain string, keyAuth string) error {
 }
 
 func (c dnsChallengeClient) CleanUp(domain string, keyAuth string) error {
-	return c.dnsChallengeReq("cleanup", domain, keyAuth)
+	err := c.dnsChallengeReq("cleanup", domain, keyAuth)
+	if err != nil {
+		log.Println("Error while communicating with dns-challenger : " + err.Error())
+	}
+	log.Println("Finish cleanup")
+	return err
 }
 
 func (c dnsChallengeClient) dnsChallengeReq(action string, domain string, keyAuth string) error {
